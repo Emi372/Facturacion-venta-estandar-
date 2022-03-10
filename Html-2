@@ -1,0 +1,165 @@
+<table style="border: none;width:538.65pt;border-collapse:collapse;">
+    <tbody>
+        <tr>
+            <td style="width: 28.35pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:center;'><strong><span style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Cantidad</span></strong></p>
+            </td>
+            <td style="width: 28.35pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:center;'><strong><span style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Unidad</span></strong></p>
+            </td>
+            <td style="width: 56.7pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:center;'><strong><span style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Clave Unidad SAT</span></strong></p>
+            </td>
+            <td style="width: 85.05pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:center;'><strong><span style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Clave Producto/Servicio</span></strong></p>
+            </td>
+            <td style="width: 141.75pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:center;'><strong><span style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Concepto / Descripci&oacute;n</span></strong></p>
+            </td>
+            <td style="width: 56.7pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:center;'><strong><span style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Valor Unitario</span></strong></p>
+            </td>
+            <td style="width: 56.7pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:center;'><strong><span style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Impuestos</span></strong></p>
+            </td>
+            <td style="width: 56.7pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:right;'><strong><span style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Importe</span></strong></p>
+            </td>
+        </tr>
+        {%- for item in doc.items -%}
+        <tr>
+            <td style="width:28.35pt;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:center;'><span style='font-size:11px;font-family:"Calibri",sans-serif;'>{{item.qty}}</span></p>
+            </td>
+            <td style="width:28.35pt;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:center;'><span style='font-size:11px;font-family:"Calibri",sans-serif;'>{{item.uom}}</span></p>
+            </td>
+            <td style="width:56.7pt;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:center;'><span style='font-size:11px;font-family:"Calibri",sans-serif;'>{{item.clave_unidad}}</span></p>
+            </td>
+            <td style="width:85.05pt;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:center;'><span style='font-size:11px;font-family:"Calibri",sans-serif;'>{{item.clave_producto}}&nbsp;</span></p>
+            </td>
+            <td style="width:141.75pt;">
+                <p style='margin:0in;font-size:12px;font-size:11px;font-family:"Calibri",sans-serif;'>{{item.item_code}}  {{item.description}}&nbsp;</p>
+            </td>
+            <td style="width:56.7pt;">
+                <p style='margin:0in;font-size:12px;font-family:"Arial",sans-serif;color:black;text-align:center;'><span style='font-size:11px;font-family:"Calibri",sans-serif;'>{{'%0.2f'|format(item.rate|float)}}</span></p>
+            </td>
+            <td style="width:56.7pt;">
+				{%- if item.tasa == "16" -%}
+				{%-   set impuesto = item.amount*0.16 -%}
+				{%- else -%}
+				{%- set impuesto = 0 -%}
+				{%- endif -%}
+				<p style='margin:0in;font-size:12px;font-family:"Arial",sans-serif;color:black;text-align:center;'><span style='font-size:11px;font-family:"Calibri",sans-serif;'>&nbsp;{{ frappe.format('%0.2f'|format(impuesto|float), {'fieldtype': 'Currency'}) }}</span></p>
+            </td>
+            <td style="width:56.7pt;">
+                <p style='margin:0in;font-size:12px;font-family:"Arial",sans-serif;color:black;text-align:center;'><span style='font-size:11px;font-family:"Calibri",sans-serif;'>{{ item.get_formatted("amount") }}</span></p>
+            </td>
+        </tr>
+		{%- endfor -%}
+    </tbody>
+</table>
+<p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;'><span style='font-size:11px;font-family:"Calibri",sans-serif;'>&nbsp;</span></p>
+<table style="border: none;width:538.65pt;border-collapse:collapse;">
+    <tbody>
+        <tr>
+            <td style="width:334.85pt;height:13.5pt;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;'><strong><span style='font-size:12px;font-family:"Calibri",sans-serif;color:#0082B7;'>Importe con letra:</span></strong></p>
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;'><span style='font-size:12px;font-family:"Calibri",sans-serif;'>{{doc.remarks}}</span></p>
+            </td>
+            <td style="width:12.25pt;height:13.5pt;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;'><strong><span style='font-size:11px;font-family:"Calibri",sans-serif;color:#17365D;'>&nbsp;</span></strong></p>
+            </td>
+            <td style="width: 100.05pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;height: 13.5pt;vertical-align: bottom;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;'><strong><span style='font-size:12px;font-family:"Calibri",sans-serif;color:#0082B7;'>Subtotal</span></strong></p>
+            </td>
+            <td style="width: 91.5pt;padding: 0in 5.4pt;height: 13.5pt;vertical-align: bottom;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:right;'><span style="font-family: Calibri, sans-serif; font-size: 12px;">{{ frappe.format('%0.2f'|format(doc.total|float), {'fieldtype': 'Currency'}) }}</span></p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="width:347.1pt;height:13.5pt;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;'><span style="font-family: Calibri, sans-serif;"><span style="font-size: 12px;">&nbsp;</span></span></p>
+            </td>
+            <td style="width: 100.05pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;height: 13.5pt;vertical-align: bottom;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;'><span style="font-family: Calibri, sans-serif;"><strong><span style="font-size: 12px; color: rgb(0, 130, 183);">Impuestos Trasladados</span></strong></span></p>
+            </td>
+            {%- set total = doc.total -%}
+            {%- set impuestos = total * 0.16 -%}
+            {%- set rounded = impuestos % 0.1 -%}
+            {%- if rounded < 0 or rounded == 0.1  -%}   
+            {%- set impuestos = impuestos + 0.01 -%}
+            {%- set total = doc.total + impuestos -%}
+            {%- else -%}
+            {%- set impuestos = impuestos -%}
+            {%- set total = doc.total + impuestos -%}
+            {%- endif -%}
+            <td style="width: 91.5pt;padding: 0in 5.4pt;height: 13.5pt;vertical-align: bottom;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:right;'><span style="font-family: Calibri, sans-serif;"><span style="white-space: pre; font-size: 12px;">&nbsp; &nbsp;&nbsp;</span><span style="font-size: 12px;">{{ frappe.format('%0.2f'|format(impuestos|float), {'fieldtype': 'Currency'}) }}</span></span></p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="width:347.1pt;height:auto;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;'><span style="font-size: 12px;"><span style="font-family: Calibri, sans-serif;height:auto!important;">
+                  <strong>
+                    <span style="color: rgb(0, 130, 183);">Observaciones:
+                    </span></strong>
+                    {%- set z = "" -%}
+                    {%- if doc.observaciones is not none -%}
+                    {%-   set z = doc.observaciones -%}
+                    {%- endif -%}
+                    {{z}}
+                  </span><br><br>
+                  {%- set r = '' -%}
+                  {%- if doc.relacion is not none -%}
+                  {%- set r = doc.relacion -%}
+                  {%- endif -%}
+                </span></p>
+            </td>
+            <td style="width: 100.05pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;height:auto!important;vertical-align: bottom;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;'><span style="font-size: 12px;"><span style="font-family: Calibri, sans-serif;"><strong><span style="color: rgb(0, 130, 183);">Total</span></strong></span></span></p>
+            </td>
+            <td style="width: 91.5pt;padding: 0in 5.4pt;height:auto!important;vertical-align: bottom;">
+                <p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:right;'><span style="font-size: 12px;"><span style="font-family: Calibri, sans-serif;">{{ frappe.format('%0.2f'|format(total|float), {'fieldtype': 'Currency'}) }}<br></span></span></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p style='margin:0in;font-size:12px;font-family: Calibri, sans-serif;'>
+                    <strong style="color: rgb(0, 130, 183);">Tipo de Relación:</strong><span style="color: black;"> {{r}}</span><br>
+                    <strong style="color: rgb(0, 130, 183);">CFDI Relacionado:</strong>
+                        <span style="color: black;">{%- for item in doc.si_sustitucion -%}
+                        {{item.uuid}}</span>
+                        {%- endfor -%}
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br>
+
+
+
+<div class="col-xs-12"><hr>
+	<b><p style='margin:0in;font-size:12px;font-family:"Times New Roman",serif;text-align:left;'><strong><span style='font-size:14px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Este documento es una representación impresa de un CFDI</span></strong></p></b>
+	<br>
+	<div class="row">
+	<div class="col-sm-3" style="width: 18%; padding-left: 15px !important; padding-right: 5px !important;"><img src="{{ doc.qr }}">
+	</div>
+	<div class="col-sm-8" style="width: 80%; padding-left: 11px !important;">
+        <strong style="font-size: 9px;color:#0082B7;">Serie del Certificado del Emisor:</strong>
+		<span  style="font-size: 8px;word-wrap: break-word !important;">{{doc.no_certificado}}</span><br>
+        <strong style="font-size: 9px;color:#0082B7;">Folio Fiscal:</strong>
+		<span  style="font-size: 8px;word-wrap: break-word !important;">{{doc.uuid}}</span><br>
+        <strong style="font-size: 9px;color:#0082B7;">No. de Serie del Certificado del SAT:</strong>
+		<span  style="font-size: 8px;word-wrap: break-word !important;">{{doc.nocertificadosat}}</span><br>
+        <strong style="font-size: 9px;color:#0082B7;">Fecha y Hora de Certificación:</strong>
+		<span style="font-size: 8px;word-wrap: break-word !important;">{{ doc.creation }}</span><br>
+		<strong style="font-size: 9px;color:#0082B7;">Sello digital del SAT</strong><br>
+		<span style="font-size: 8px;word-wrap: break-word !important;">{{ doc.sellosat }}</span><br>
+		<strong style="font-size: 9px;color:#0082B7;">Cadena original del complemento de certificaci&oacute;n digital del SAT</strong><br>
+		<span style="font-size: 8px;word-wrap: break-word !important;">||1.1 | {{ doc.uuid }} | {{doc.fechatimbrado}} | {{ doc.sellocfd }} |{{ doc.nocertificadosat }}|{{ doc.rfc_emisor }}||</span>
+	</div>
+</div>
