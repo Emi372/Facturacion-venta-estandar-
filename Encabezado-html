@@ -1,0 +1,114 @@
+<style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+.p-table{
+    margin:0in;
+    font-size:12px;
+    font-family: 'Montserrat', sans-serif;
+    text-align:center;
+}
+.span-table{
+    font-size:11px;
+    font-family: 'Montserrat', sans-serif;
+    color:#234C7D;
+}
+p {
+  margin: 0px !important;
+  margin:0in;
+  font-size:12px;
+  font-family:"Montserrat",sans-serif;
+}
+.td-contenedor{
+    font-size:12px;
+    line-height:1.1;
+    background:#D9D9D9;
+    height:10.75pt;
+}
+.td-contenido{
+    height:7.95pt;
+}
+.td-datos-cliente{
+    width:90pt;
+    vertical-align: center;
+}
+.p-contenedor{
+    margin:0in;
+    font-size:12px;
+    font-family: 'Montserrat', sans-serif;
+    color:#234C7D;
+    font-weight: bold;
+}
+.p-contenido{
+    margin:0in;
+    font-size:12px;
+    font-family: 'Montserrat', sans-serif;
+}
+.td-contenedor-c{
+    font-size:10px;
+    width:85pt;
+    line-height:1.1;
+    background:#D9D9D9;
+    height:8pt;
+}
+.p-contenido-c{
+    margin:0in;
+    font-size:8px;
+    font-family: 'Montserrat', sans-serif;
+}
+.td-totales{
+    width: 100.05pt;
+    background: rgb(217, 217, 217);
+    padding: 0in 5.4pt;
+    height: 13.5pt;
+    vertical-align: bottom;
+}
+.p-totales{
+    margin:0in;
+    font-size:12px;
+    font-family: 'Montserrat', sans-serif;
+    text-align:right;
+}
+</style>
+{%- set company = frappe.get_doc('Company',doc.company) -%}
+{%- set logo = '/files/'+doc.company+'.png' -%}
+{%- set domcompany  = frappe.get_doc('Address', doc.company+'-Facturación') -%}
+
+<table style="width:100%;">
+    <tbody>
+        <tr>
+            <td>
+                <p style='font-size:16px;font-family: "Montserrat", sans-serif;color:black;text-align:center;'>&nbsp;</p>
+            </td>
+            <td>
+                <p style='font-size:16px;font-family: "Montserrat", sans-serif;color:black;text-align:center;'>&nbsp;</p>
+            </td>
+            <td>
+                <p style='font-size:16px;font-family: "Montserrat", sans-serif;color:black;'>FACTURA</p>
+            </td>
+        </tr>
+        <tr>
+            <td  style="width:25%;">
+                <p><img src="{{logo}}" alt="LOGO" width="190px" style="float: left; text-align: left; display: inline-block;max-width: 190px !important;margin-top: -40px;margin-bottom: -27px;"></p>
+            </td>
+           <td>
+                <p style='margin:0in;text-align:left;font-size:12px;font-family: "Montserrat", sans-serif;text-align:center;font-weight:bold;'>{{doc.company}}</p>
+                <p style='margin:0in;text-align:left;font-size:12px;font-family: "Montserrat", sans-serif;text-align:center;font-weight:bold;'>RFC:{{company.tax_id}}</p>
+                <p style='font-size:10px;font-family: "Montserrat", sans-serif;color:black;text-align:center;'>{{domcompany.address_line1}}</p>
+                <p style='font-size:10px;font-family: "Montserrat", sans-serif;color:black;text-align:center;'>{{domcompany.city}}, {{domcompany.state}}, {{domcompany.country}}, CP {{domcompany.pincode}}</p>
+                <p style='font-size:10px;font-family: "Montserrat", sans-serif;color:black;text-align:center;'>Tel. {{domcompany.phone}} | {{domcompany.fax}}</p>
+                <p style='font-size:10px;font-family: "Montserrat", sans-serif;color:black;text-align:center;'>{{domcompany.email_id}}</p>
+            </td>
+            <td  style="width:30%;">
+                <p style='margin:0in;text-align:left;font-size:12px;font-family: "Montserrat", sans-serif;font-weight:bold;'>Serie: {{doc.naming_series}}</p>
+                <p style='margin:0in;text-align:left;font-size:12px;font-family: "Montserrat", sans-serif;font-weight:bold;'>Folio: {{doc.name | replace(doc.naming_series,"")}}</p>
+                <p style='margin:0in;font-size:12px;font-family: "Montserrat", sans-serif;'>Fecha: {{ frappe.format(doc.posting_date, {'fieldtype': 'Date'}) }}</p>
+                <p style='margin:0in;font-size:12px;font-family: "Montserrat", sans-serif;'>&nbsp;</p>
+                <p style='margin:0in;font-size:12px;font-family: "Montserrat", sans-serif;'>&nbsp;</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:25%;">
+                <p style='font-size:10px;font-family: "Montserrat", sans-serif;text-align:left;'>{{doc.owner}}</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
