@@ -1,1 +1,59 @@
+.print-format {
+    padding: 3mm 5mm 0mm 5mm !important;
+	font-size: 4pt !important;
+}
+.break-word {
+	 word-wrap: break-word !important;
+}
+.texto {
+	 line-height: 1em !important; 
+	 font-size: 9px !important; 
+	 word-wrap: break-word !important;
+}
+.col-xs-3 {
+	 padding-right: 5px !important;
+}
 
+@media print {
+.print-format {
+     padding: 0mm 0mm 0mm 0mm !important;
+	 font-size: 4pt !important;
+}
+.texto {
+	 line-height: 1.6em !important; 
+    	 font-size: 9px !important; 
+	 font-family: arial !important;
+	 word-wrap: break-word !important;
+}
+.break-word {
+	 word-wrap: break-word !important;
+	}
+
+.col-sm-3 {
+	 float: left !important;
+	 width: 18% !important;
+	}
+.col-sm-8 {
+	 float: left !important;
+	 width: 80% !important;
+	 line-height: 1.4em !important;
+	 font-size: 5px !important;
+	}
+	
+}
+.print-format td{
+    padding: 2px !important;
+}
+.print-format tr{
+    margin: 20px !important;
+}
+
+.print-format table{
+    width: 100% !important;
+}
+
+.print-format .p-contenido{
+    font-size : 12px;
+}
+table th.table-sr { display: none; }
+table td.table-sr { display: none; }
