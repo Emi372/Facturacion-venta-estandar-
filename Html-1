@@ -1,0 +1,148 @@
+{%- set c = frappe.get_doc('Customer', doc.customer)-%}
+{%- if doc.customer_address is not none  -%}
+{%- set a = frappe.get_doc('Address', doc.customer_address)-%}
+{%- set m = frappe.get_doc('CFDI Metodo Pago', doc.metodo_pago)-%}
+{%- set f = frappe.get_doc('CFDI Forma de Pago', doc.forma_de_pago)-%}
+<br>
+<table style="border: none;width:538.65pt;border-collapse:collapse;">
+    <tbody>
+        <tr>
+            <td style="width: 28.35pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Forma de pago</p>
+            </td>
+            <td class="td-contenido">
+                <p class="p-contenido">&nbsp;{{doc.forma_de_pago}} -&nbsp;{{f.descripcion}}</p>
+            </td>
+            <td style="width: 28.35pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Folio</p>
+            </td>
+            <td class="td-contenido">
+                <p class="p-contenido"><strong>{{ doc.name}}</strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 28.35pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Método de pago</p>
+            </td>
+            <td class="td-contenido">
+                <p class="p-contenido">&nbsp;{{doc.metodo_pago}} -&nbsp;&nbsp;{{m.descripcion}}</p>
+            </td>
+            <td style="width: 28.35pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Fecha</p>
+            </td>
+            <td class="td-contenido">
+                <p class="p-contenido">{{ doc.posting_date}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 28.35pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Moneda:</p>
+            </td>
+            <td class="td-contenido">
+                <p class="p-contenido">&nbsp;{{doc.currency}}</p>
+            </td>
+            <td class="td-contenedor">
+                <p class="p-contenedor">&nbsp;</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<table style="border: none;width:538.65pt;border-collapse:collapse;">
+    <tbody>
+        <tr>
+            <td colspan="4" style="width: 28.35pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Datos del cliente</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-datos-cliente">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Cliente:</p>
+            </td>
+            <td colspan="3" style="width: 453.65pt;vertical-align: top;">
+                <p class="p-contenido">{{doc.customer}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-datos-cliente">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>RFC:</p>
+            </td>
+            <td style="width: 170.1pt;vertical-align: top;">
+                <p class="p-contenido">{{c.tax_id}}</p>
+            </td>
+            <td class="td-datos-cliente">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Uso CFDI:&nbsp;</p>
+            </td>
+            <td style="width: 226.85pt;vertical-align: top;">
+                <p class="p-contenido">{{doc.uso_cfdi}} -&nbsp;{{doc.uso_cfdi_descripcion}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-datos-cliente">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Domicilio:</p>
+            </td>
+            <td colspan="3" style="width: 453.65pt;vertical-align: top;">
+                <p class="p-contenido">{{a.address_line1}} , {{a.county}} , {{a.city}} , {{a.state}} , {{a.country}} , CP {{a.pincode}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-datos-cliente">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>OC Cliente:</p><br>
+            </td>
+            <td colspan="3"style="width: 453.65pt;vertical-align: top;">
+                <p class="p-contenido">{{doc.po_no}}</p><br>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{%- endif -%}
+{%- if doc.customer_address is none  -%}
+<br>
+<table style="border: none;width:538.65pt;border-collapse:collapse;">
+    <tbody>
+        <tr>
+            <td colspan="4" style="width: 28.35pt;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Datos del cliente</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-datos-cliente">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Cliente:</p>
+            </td>
+            <td colspan="3" style="width: 453.65pt;vertical-align: top;">
+                <p class="p-contenido">{{doc.customer}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-datos-cliente">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>RFC:</p>
+            </td>
+            <td style="width: 170.1pt;vertical-align: top;">
+                <p class="p-contenido">{{c.tax_id}}</p>
+            </td>
+            <td class="td-datos-cliente">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Uso CFDI:&nbsp;</p>
+            </td>
+            <td style="width: 226.85pt;vertical-align: top;">
+                <p class="p-contenido">{{doc.uso_cfdi}} -&nbsp;{{doc.uso_cfdi_descripcion}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-datos-cliente">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>Domicilio:</p>
+            </td>
+            <td colspan="3" style="width: 453.65pt;vertical-align: top;">
+                <p class="p-contenido"></p>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-datos-cliente">
+                <p style='font-size:11px;font-family:  "Calibri",sans-serif;color:#0082B7;'>OC Cliente:</p><br>
+            </td>
+            <td colspan="3"style="width: 453.65pt;vertical-align: top;">
+                <p class="p-contenido">{{doc.po_no}}</p><br>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{%- endif -%}
